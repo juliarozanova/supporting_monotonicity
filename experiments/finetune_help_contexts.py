@@ -46,4 +46,4 @@ if __name__=='__main__':
         compute_metrics=compute_metrics,
     )
 
-    trainer.train(resume_from_checkpoint=True)
+    trainer.train(resume_from_checkpoint=False)
