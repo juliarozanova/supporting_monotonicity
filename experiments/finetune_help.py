@@ -1,7 +1,7 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
 import numpy as np
 from sklearn.metrics import accuracy_score
-from data_utils import load_help, encode_nli_dataset
+from data_prep.data_utils import load_help, encode_nli_dataset
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, LABEL2ID
 from loguru import logger
 import torch
@@ -10,8 +10,7 @@ import gc
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
-    return accuracy_score(y_true=labels, y_pred=predictions)
-
+    return {'accuracy': accuracy_score(y_true=labels, y_pred=predictions)}
 
 
 if __name__=='__main__':

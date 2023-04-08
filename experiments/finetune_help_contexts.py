@@ -1,7 +1,7 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
 import numpy as np
 from sklearn.metrics import accuracy_score
-from data_utils import load_help_contexts, encode_contexts_dataset
+from data_prep.data_utils import load_help_contexts, encode_contexts_dataset
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, CONTEXTS_LABEL2ID
 from loguru import logger
 import torch
