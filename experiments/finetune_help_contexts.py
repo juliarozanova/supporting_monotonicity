@@ -1,7 +1,7 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
 import numpy as np
 from sklearn.metrics import accuracy_score
-from data_utils import load_help_contexts, encode_contexts_dataset
+from data_prep.data_utils import load_help_contexts, encode_contexts_dataset
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, CONTEXTS_LABEL2ID
 from loguru import logger
 import torch
@@ -16,9 +16,11 @@ def compute_metrics(eval_pred):
     return {'accuracy': accuracy_score(y_true=labels, y_pred=predictions)}
 
 
-def finetune(model_name, dataset_name, batch_size):
+def finetune_on_help_contexts(model_name, batch_size):
     tokenizer = AutoTokenizer.from_pretrained(TOKENIZERS[model_name])
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_HANDLES[model_name], num_labels=2, ignore_mismatched_sizes=True)
+
+    model.config.n_labels = 2
 
     train_dataset, eval_dataset = load_help_contexts()
 
@@ -48,6 +50,8 @@ def finetune(model_name, dataset_name, batch_size):
 
     trainer.train(resume_from_checkpoint=False)
 
+    trainer.save_model(f'./{model_name}_help_contexts')
+
 if __name__=='__main__':
     argParser = argparse.ArgumentParser()
     argParser.add_argument("-bs", "--batch_size", type=int, help="Per-device batch size")
@@ -57,4 +61,6 @@ if __name__=='__main__':
     dataset_name = 'help_contexts'
     model_name = 'roberta-large-mnli'
     # device='cuda'
-    finetune(model_name, dataset_name, args.batch_size)
+    finetune_on_help_contexts(model_name, args.batch_size)
+
+    # output save?
