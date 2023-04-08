@@ -2,7 +2,7 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trai
 from datasets import load_dataset
 import numpy as np
 from sklearn.metrics import accuracy_score
-from data_prep.data_utils import load_dataset_splits, encode
+from data_utils import load_dataset_splits, encode
 from loguru import logger
 
 

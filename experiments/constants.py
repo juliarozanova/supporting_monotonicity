@@ -49,16 +49,10 @@ LABEL2ID_2CLASS = {
     "ENTAILMENT": 0,
     "non-entailment": 1,
     "NON_ENTAILMENT": 1,
-    "NON-ENTAILMENT": 1,
     "contradiction": 1,
     "CONTRADICTION": 1,
     "neutral": 1,
     "NEUTRAL": 1,
-}
-
-ID2LABEL_2CLASS = {
-    0: "entailment",
-    1: "non-entailment"
 }
 
 
