@@ -10,8 +10,7 @@ import gc
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
-    return accuracy_score(y_true=labels, y_pred=predictions)
-
+    return {'accuracy': accuracy_score(y_true=labels, y_pred=predictions)}
 
 
 if __name__=='__main__':
@@ -35,7 +34,7 @@ if __name__=='__main__':
 
     training_args = TrainingArguments(output_dir="test_trainer", 
                                         evaluation_strategy="epoch",
-                                        per_device_train_batch_size=1)
+                                        per_device_train_batch_size=32)
 
     # model.to(device)
     trainer = Trainer(
@@ -45,5 +44,7 @@ if __name__=='__main__':
         eval_dataset=eval_dataset,
         compute_metrics=compute_metrics,
     )
+
+    # trainer.evaluate()
 
     trainer.train(resume_from_checkpoint=False)
