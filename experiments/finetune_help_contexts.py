@@ -6,6 +6,9 @@ from experiments.constants import MODEL_HANDLES, TOKENIZERS, CONTEXTS_LABEL2ID
 from loguru import logger
 import torch
 import gc
+import argparse
+
+
 
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
@@ -13,11 +16,7 @@ def compute_metrics(eval_pred):
     return {'accuracy': accuracy_score(y_true=labels, y_pred=predictions)}
 
 
-if __name__=='__main__':
-    dataset_name = 'help_contexts'
-    model_name = 'roberta-large-mnli'
-    # device='cuda'
-
+def finetune(model_name, dataset_name, batch_size):
     tokenizer = AutoTokenizer.from_pretrained(TOKENIZERS[model_name])
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_HANDLES[model_name], num_labels=2, ignore_mismatched_sizes=True)
 
@@ -34,7 +33,7 @@ if __name__=='__main__':
 
     training_args = TrainingArguments(output_dir="test_trainer", 
                                         evaluation_strategy="epoch",
-                                        per_device_train_batch_size=32)
+                                        per_device_train_batch_size=batch_size)
 
     # model.to(device)
     trainer = Trainer(
@@ -48,3 +47,14 @@ if __name__=='__main__':
     # trainer.evaluate()
 
     trainer.train(resume_from_checkpoint=False)
+
+if __name__=='__main__':
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument("-bs", "--batch_size", type=int, help="Per-device batch size")
+
+    args = argParser.parse_args()
+
+    dataset_name = 'help_contexts'
+    model_name = 'roberta-large-mnli'
+    # device='cuda'
+    finetune(model_name, dataset_name, args.batch_size)
