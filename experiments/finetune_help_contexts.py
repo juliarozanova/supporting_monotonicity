@@ -5,7 +5,6 @@ from data_prep.data_utils import load_help_contexts, encode_contexts_dataset
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, CONTEXTS_LABEL2ID
 from loguru import logger
 import torch
-import gc
 import argparse
 
 
@@ -50,7 +49,7 @@ def finetune_on_help_contexts(model_name, batch_size):
 
     trainer.train(resume_from_checkpoint=False)
 
-    trainer.save_model(f'./{model_name}_help_contexts')
+    trainer.save_model(f'./models/{model_name}-help-contexts')
 
 if __name__=='__main__':
     argParser = argparse.ArgumentParser()

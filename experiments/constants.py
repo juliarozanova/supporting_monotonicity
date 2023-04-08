@@ -26,6 +26,7 @@ TOKENIZERS = {
     'roberta-large-mnli': 'roberta-large-mnli',
     'roberta-large-mnli-help': 'roberta-large-mnli',
     'roberta-large-mnli-double_finetuning': 'roberta-large-mnli',
+    'roberta-large-mnli-help-contexts': 'roberta-large-mnli',
     'facebook/bart-large-mnli': 'facebook/bart-large-mnli',
     'facebook/bart-large-mnli-help': 'facebook/bart-large-mnli',
     'infobert': './models/infobert-checkpoint',
@@ -33,6 +34,7 @@ TOKENIZERS = {
 }
 
 MODEL_HANDLES = {
+    'roberta-large-mnli-help-contexts': './models/roberta-large-mnli-help-contexts',
     'bert-base-uncased-snli': 'textattack/bert-base-uncased-snli',
     'bert-base-uncased-snli-help': './models/bert-base-uncased-snli-help',
     'roberta-large-mnli': 'roberta-large-mnli',
