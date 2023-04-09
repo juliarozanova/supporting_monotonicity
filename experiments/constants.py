@@ -17,8 +17,8 @@ DATASET_NAMES = [
     'anli'
 ]
 
-MAX_LENGTH =  60 #128
-BATCH_SIZE = 8 #
+MAX_LENGTH = 512 # 
+BATCH_SIZE = 64 #
 
 TOKENIZERS = {
     'bert-base-uncased-snli': 'textattack/bert-base-uncased-snli',
