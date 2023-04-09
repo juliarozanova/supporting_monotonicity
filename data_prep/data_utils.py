@@ -1,4 +1,4 @@
-from experiments.constants import MAX_LENGTH, LABEL2ID
+from experiments.constants import MAX_LENGTH, LABEL2ID_2CLASS
 from datasets import Dataset, ClassLabel
 from loguru import logger
 import pandas as pd
@@ -17,7 +17,7 @@ def loaddataset_splits():
 def load_nli_dataset_from_df(df):
     dataset = Dataset.from_pandas(df)
     dataset = dataset.map(lambda examples: {"label": examples["gold_label"]}, batched=True)
-    dataset = dataset.cast_column("label", ClassLabel(num_classes=3, names=['entailment', 'neutral', 'contradiction']))
+    dataset = dataset.cast_column("label", ClassLabel(num_classes=2, names=['entailment', 'neutral']))
 
     return dataset
 

@@ -1,18 +1,12 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
-import numpy as np
-from sklearn.metrics import accuracy_score
+
 from data_prep.data_utils import load_help_contexts, encode_contexts_dataset
+from experiments.utils import compute_metrics
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, CONTEXTS_LABEL2ID
 from loguru import logger
 import torch
 import argparse
 
-
-
-def compute_metrics(eval_pred):
-    logits, labels = eval_pred
-    predictions = np.argmax(logits, axis=-1)
-    return {'accuracy': accuracy_score(y_true=labels, y_pred=predictions)}
 
 
 def finetune_on_help_contexts(model_name, batch_size):

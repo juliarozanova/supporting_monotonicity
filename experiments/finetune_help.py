@@ -1,16 +1,10 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
-import numpy as np
-from sklearn.metrics import accuracy_score
-from data_utils import load_help, encode_nli_dataset
+from data_prep.data_utils import load_help, encode_nli_dataset
+from experiments.utils import compute_metrics
 from experiments.constants import MODEL_HANDLES, TOKENIZERS, LABEL2ID_2CLASS
 from loguru import logger
 import torch
 import argparse
-
-def compute_metrics(eval_pred):
-    logits, labels = eval_pred
-    predictions = np.argmax(logits, axis=-1)
-    return accuracy_score(y_true=labels, y_pred=predictions)
 
 def finetune_on_help(model_name, batch_size):
     tokenizer = AutoTokenizer.from_pretrained(TOKENIZERS[model_name])
@@ -42,7 +36,7 @@ def finetune_on_help(model_name, batch_size):
         compute_metrics=compute_metrics,
     )
 
-    trainer.train(resume_from_checkpoint=True)
+    trainer.train(resume_from_checkpoint=False)
 
     trainer.save_model(f'./models/{model_name}-help')
 
