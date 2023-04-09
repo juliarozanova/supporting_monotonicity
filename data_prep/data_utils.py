@@ -8,7 +8,8 @@ def encode_nli(example, tokenizer):
     return tokenizer(example["premise"], example["hypothesis"], truncation=True, padding="max_length", max_length=MAX_LENGTH)
 
 def encode_contexts(example, tokenizer):
-    return tokenizer(example["context"], truncation=True, padding="max_length", max_length=MAX_LENGTH)
+    # we don't need as big a max_length for single sentences rather than sentence pairs 
+    return tokenizer(example["context"], truncation=True, padding="max_length", max_length=64)
 
 def loaddataset_splits():
     pass
