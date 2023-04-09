@@ -17,7 +17,7 @@ DATASET_NAMES = [
     'anli'
 ]
 
-MAX_LENGTH = 512 # 
+MAX_LENGTH =  256 # 
 BATCH_SIZE = 64 #
 
 TOKENIZERS = {
