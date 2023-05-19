@@ -8,7 +8,6 @@ import torch
 import argparse
 
 
-
 def finetune_on_help_contexts(model_name, batch_size):
     tokenizer = AutoTokenizer.from_pretrained(TOKENIZERS[model_name])
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_HANDLES[model_name], num_labels=2, ignore_mismatched_sizes=True)
